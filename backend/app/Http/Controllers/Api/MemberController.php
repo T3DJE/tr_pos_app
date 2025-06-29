@@ -58,11 +58,11 @@ class MemberController extends Controller
      */
     public function show(string $id)
     {
-        $member = Member::find('id', $id)->select('id', 'nama_member', 'no_telpon')->get();
+        $member = Member::select('id', 'nama_member', 'no_telpon')->find($id);
         return response()->json([
             "Status" => "Success",
-            "Response" => "Successfully GetId Member",
-            "JSON" => $id
+            "Response" => "Successfully Get ID: $id Member",
+            "JSON" => $member
         ], 201);
         
     }

@@ -19,7 +19,7 @@ Route::middleware('auth:api')->group(function () {
     Route::get('/index2', [TestController::class, 'index2']);
     Route::group(['middleware' => 'admin'], function () {
         Route::get('/readmember', [MemberController::class, 'index']);
-        Route::get('/getbyid/{id}'. [MemberController::class, 'show']);
+        Route::get('/getbyid/{id}', [MemberController::class, 'show']);
         Route::post('/createmember', [MemberController::class, 'create']);
         Route::put('/updatemember', [MemberController::class, 'update']);
         Route::delete('/deletemember/{id}', [MemberController::class, 'destroy']);
