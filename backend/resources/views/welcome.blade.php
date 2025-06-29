@@ -7,6 +7,6 @@
     <title>Document</title>
 </head>
 <body>
-    <h1>Hello Ini Github</h1>
+    <h1>Hello Ini Github Pantek</h1>
 </body>
 </html>
