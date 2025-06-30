@@ -45,17 +45,6 @@ class MemberController extends Controller
         ], 201);
     }
 
-    /**
-     * Store a newly created resource in storage.
-     */
-    public function store(Request $request)
-    {
-        //
-    }
-
-    /**
-     * Display the specified resource.
-     */
     public function show(string $id)
     {
         $member = Member::select('id', 'nama_member', 'no_telpon')->find($id);
@@ -64,20 +53,9 @@ class MemberController extends Controller
             "Response" => "Successfully Get ID: $id Member",
             "JSON" => $member
         ], 201);
-        
+
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(string $id)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     */
     public function update(Request $request)
     {
 
@@ -85,7 +63,7 @@ class MemberController extends Controller
             'nama_member' => 'required|string',
             'no_telpon' => 'required|string'
         ]);
-        
+
         if($validator->fails()){
             return response()->json([
                 "Status" => "Failed",
@@ -105,10 +83,6 @@ class MemberController extends Controller
             "JSON" => $member
         ], 201);
     }
-
-    /**
-     * Remove the specified resource from storage.
-     */
     public function destroy(String $id)
     {
         $member = Member::find($id)->delete();
