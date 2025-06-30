@@ -1,10 +1,9 @@
 <?php
 
 use App\Http\Controllers\Api\AuthController;
+use App\Http\Controllers\Api\CategoryController;
 use App\Http\Controllers\Api\MemberController;
 use App\Http\Controllers\Api\SupplierController;
-use App\Http\Controllers\Api\TestController;
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
 
@@ -35,6 +34,13 @@ Route::middleware('auth:api')->group(function () {
         Route::get('/showsupplier/{id}', [SupplierController::class, 'showsupplier']);
         Route::put('/updatesupplier', [SupplierController::class, 'updatesupplier']);
         Route::delete('/destroysupplier/{id}', [SupplierController::class, 'destroysupplier']);
+
+        // Category Routes
+        Route::get('/readcategory', [CategoryController::class, 'readcategory']);
+        Route::post('/createcategory', [CategoryController::class, 'createcategory']);
+        Route::get('/showcategory/{id}', [CategoryController::class, 'showcategory']);
+        Route::put('/updatecategory', [CategoryController::class, 'updatecategory']);
+        Route::delete('/destroycategory/{id}', [CategoryController::class, 'destroycategory']);
 
     });
 });
