@@ -26,7 +26,7 @@ class CategoryController extends Controller
 
         if($validator->fails()){
             return response()->json([
-                "Status" => "Failed",
+                "Status" => "Failed Banget",
                 "Error" => $validator->errors()->toJson()
             ], 400);
         }
@@ -57,7 +57,7 @@ class CategoryController extends Controller
         $validator = Validator::make($request -> all(),[
             'nama_kategory' => 'required|string',
         ]);
-        
+
         if($validator->fails()){
             return response()->json([
                 "Status" => "Failed",
