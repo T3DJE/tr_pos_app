@@ -18,6 +18,7 @@ Route::group([
 Route::middleware('auth:api')->group(function () {
     Route::get('/index2', [TestController::class, 'index2']);
     Route::group(['middleware' => 'admin'], function () {
+        Route::post('/registercashier', [AuthController::class, 'registercashier']);
         Route::get('/readmember', [MemberController::class, 'index']);
         Route::get('/getbyid/{id}', [MemberController::class, 'show']);
         Route::post('/createmember', [MemberController::class, 'create']);

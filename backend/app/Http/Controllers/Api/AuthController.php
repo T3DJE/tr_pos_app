@@ -53,6 +53,38 @@ class AuthController extends Controller
             "JSON" => $user
         ], 201);
     }
+
+
+    public function registercashier(Request  $request){
+        $validator = Validator::make($request->all(), [
+            'name' => 'required|string|between:2, 100',
+            'email' => 'required|string|email|max:100|unique:users',
+            'password' => 'required|string|confirmed|min:8|regex:/^(?=.*[A-Z])(?=.*[\W_]).+$/',
+        ]);
+
+        if($validator->fails()){
+            return response()->json([
+                "Status" => "Failed",
+                "Error" => $validator->errors()->toJson()
+            ], 400);
+        }
+
+        $user = User::create(array_merge(
+            $validator->validated(),
+            [
+                'password' => bcrypt($request->password),
+                'role' => 'cashier'
+            ]
+        ));
+
+        return response()->json([
+            "Status" => "Success",
+            "Response" => "Successfully Registered",
+            "JSON" => $user
+        ], 201);
+    }
+
+
     public function login(Request $request){
         $validator = Validator::make($request->all(), [
             'email' => 'required|email',
