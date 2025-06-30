@@ -7,6 +7,10 @@
     <title>Document</title>
 </head>
 <body>
+<<<<<<< HEAD
     <h1>Hello Ini Github Commit Terbaru ygy</h1>
+=======
+    <h1>Hello Ini Githubd</h1>
+>>>>>>> eadba1219ba0560aa538cc49a5ff88c4b7ef6d35
 </body>
 </html>
