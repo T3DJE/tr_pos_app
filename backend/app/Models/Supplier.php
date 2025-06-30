@@ -15,4 +15,8 @@ class Supplier extends Model
         "nama_produk",
         "stok_produk"
     ];
+
+    public function produks(){
+        return $this->hasMany(Produk::class, 'id_supplier');
+    }
 }

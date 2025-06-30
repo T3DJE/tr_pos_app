@@ -11,31 +11,21 @@ class ProdukController extends Controller
 {
     public function index()
     {
-        $produk = Produk::select(
-            'id',
-            'kode_produk',
-            'nama_produk', 
-            'stok_produk', 
-            'harga_produk', 
-            'category_produk', 
-            'gambar_produk')->get();
-        
+        $produk = Produk::with(['supplier', 'category'])->get();
         return response()->json([
             "Status" => "Succes",
             "Data" => $produk
         ], 200);
     }
 
-    public function create(Request $request)
+    public function createproduk(Request $request)
     {
-        
-        $validator = Validator::make($request -> all(),[
+        $validator = Validator::make($request->all(), [
             'kode_produk' => 'required|string',
-            'nama_produk' => 'required|string',
-            'stok_produk' => 'required|integer',
             'harga_produk' => 'required|numeric',
-            'category_produk' => 'required|string',
-            'gambar_produk' => 'nullable|string'
+            'id_category' => 'required|exists:categories,id',
+            'id_supplier' => 'required|exists:suppliers,id',
+            'image' => 'nullable|mimes:jpg,jpeg,png|max:2048'
         ]);
 
         if($validator->fails()){
@@ -44,9 +34,9 @@ class ProdukController extends Controller
                 "Error" => $validator->errors()->toJson()
             ], 400);
         }
-        
+
         $path = null;
-        
+
         if($request->hasFile('image')){
             $image = $request->file('image');
             $path = time().'.'.$image->getClientOriginalExtension();
@@ -54,8 +44,7 @@ class ProdukController extends Controller
         }
 
         $produk = Produk::create(array_merge(
-            $validator -> validated(),
-            ['gambar_produk' => $path]
+            $validator -> validated(), ['image' => $path]
         ));
 
         return response()->json([
@@ -70,10 +59,10 @@ class ProdukController extends Controller
         $produk = Produk::select(
             'id',
             'kode_produk',
-            'nama_produk', 
-            'stok_produk', 
-            'harga_produk', 
-            'category_produk', 
+            'nama_produk',
+            'stok_produk',
+            'harga_produk',
+            'category_produk',
             'gambar_produk')->find($id);
         return response()->json([
             "Status" => "Success",
@@ -122,6 +111,6 @@ class ProdukController extends Controller
             "Response" => "Successfully Delete Member",
             "JSON" => $produk
         ], 201);
-        
+
     }
 }
