@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Api;
 use App\Http\Controllers\Controller;
 use App\Models\Order;
 use App\Models\OrderItem;
+use App\Models\Produk;
 use Illuminate\Auth\Events\Validated;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
@@ -42,11 +43,11 @@ class OrderController extends Controller
         $totalHarga = 0;
 
         foreach ($validated["array"] as $item) {
-            $product = \App\Models\Produk::find($item["id_product"]);
+            $product = Produk::find($item["id_product"]);
             $totalHarga += $product->harga_produk * $item["quantity"];
         }
 
-        $order = \App\Models\Order::create([
+        $order = Order::create([
             "customer_name" => $validated["customer_name"],
             "id_payment" => $validated["id_payment"],
             "id_member" => $validated["id_member"],
@@ -56,7 +57,7 @@ class OrderController extends Controller
         $createdItems = [];
 
         foreach ($validated["array"] as $item) {
-            $createdItems[] = \App\Models\OrderItem::create([
+            $createdItems[] = OrderItem::create([
                 "order_id" => $order->id,
                 "id_product" => $item["id_product"],
                 "quantity" => $item["quantity"]
