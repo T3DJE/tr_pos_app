@@ -13,6 +13,10 @@ return new class extends Migration
     {
         Schema::create('orders', function (Blueprint $table) {
             $table->id();
+            $table->string("customer_name");
+            $table->foreignId("id_payment")->constrained("payments")->onDelete("cascade");
+            $table->foreignId("id_member")->constrained("members")->onDelete("cascade");
+            $table->decimal("total_harga", 10, 2);
             $table->timestamps();
         });
     }
@@ -25,3 +29,4 @@ return new class extends Migration
         Schema::dropIfExists('orders');
     }
 };
+
