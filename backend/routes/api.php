@@ -4,6 +4,7 @@ use App\Http\Controllers\Api\AuthController;
 use App\Http\Controllers\Api\CategoryController;
 use App\Http\Controllers\Api\MemberController;
 use App\Http\Controllers\Api\OrderController;
+use App\Http\Controllers\Api\PaymentController;
 use App\Http\Controllers\Api\ProdukController;
 use App\Http\Controllers\Api\SupplierController;
 use Illuminate\Support\Facades\Route;
@@ -53,5 +54,7 @@ Route::middleware('auth:api')->group(function () {
         // Cart Routes
         Route::get('/readcart', [OrderController::class, 'index']);
         Route::post('/createcart', [OrderController::class, 'createcart']);
+
+        Route::post('/createpayment', [PaymentController::class, 'create']);
     });
 });

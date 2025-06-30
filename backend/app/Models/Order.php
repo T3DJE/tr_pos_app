@@ -16,7 +16,7 @@ class Order extends Model
         "total_harga"
     ];
 
-    public function orderitem()
+    public function items()
     {
         return $this->hasMany(OrderItem::class);
     }
@@ -25,6 +25,7 @@ class Order extends Model
     {
         return $this->belongsTo(Member::class, 'id_member');
     }
+
     public function payment()
     {
         return $this->belongsTo(Payment::class, 'id_payment');

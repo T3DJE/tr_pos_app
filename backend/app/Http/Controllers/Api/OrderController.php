@@ -23,32 +23,51 @@ class OrderController extends Controller
     public function createcart(Request $request)
     {
         $validator = Validator::make($request->all(), [
+            "customer_name" => "required|string",
+            "id_payment" => "required|exists:payments,id",
+            "id_member" => "required|exists:members,id",
             "array" => "required|array",
             "array.*.id_product" => "required|exists:produks,id",
-            "array.*.quantity" => "required|integer"
+            "array.*.quantity" => "required|integer|min:1"
         ]);
 
         if ($validator->fails()) {
             return response()->json([
                 "Status" => "Failed",
-                "Error" => $validator->errors()->toJson()
+                "Error" => $validator->errors()
             ], 400);
         }
 
         $validated = $validator->validated();
+        $totalHarga = 0;
+
+        foreach ($validated["array"] as $item) {
+            $product = \App\Models\Produk::find($item["id_product"]);
+            $totalHarga += $product->harga_produk * $item["quantity"];
+        }
+
+        $order = \App\Models\Order::create([
+            "customer_name" => $validated["customer_name"],
+            "id_payment" => $validated["id_payment"],
+            "id_member" => $validated["id_member"],
+            "total_harga" => $totalHarga
+        ]);
+
         $createdItems = [];
 
-        foreach ($validated['array'] as $item) {
-            $createdItems[] = OrderItem::create([
-                'id_product' => $item['id_product'],
-                'quantity' => $item['quantity']
+        foreach ($validated["array"] as $item) {
+            $createdItems[] = \App\Models\OrderItem::create([
+                "order_id" => $order->id,
+                "id_product" => $item["id_product"],
+                "quantity" => $item["quantity"]
             ]);
         }
 
+        $order->load(['items.produks']);
+
         return response()->json([
-            "Status" => "Success",
-            "Response" => "Successfully created an order",
-            "JSON" => $createdItems
+            "message" => "Order created successfully",
+            "order" => $order
         ], 201);
     }
 }

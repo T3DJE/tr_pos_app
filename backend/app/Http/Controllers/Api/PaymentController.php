@@ -26,11 +26,11 @@ class PaymentController extends Controller
      */
     public function create(Request $request)
     {
-        $validator = Validator::make($request -> all(),[
-            'nama_method' => 'required|string'
+        $validator = Validator::make($request->all(), [
+            'nama_payment' => 'required|string'
         ]);
 
-        if($validator->fails()){
+        if ($validator->fails()) {
             return response()->json([
                 "Status" => "Failed",
                 "Error" => $validator->errors()->toJson()
@@ -59,11 +59,11 @@ class PaymentController extends Controller
 
     public function update(Request $request)
     {
-        $validator = Validator::make($request -> all(),[
+        $validator = Validator::make($request->all(), [
             'nama_method' => 'required|string',
         ]);
-        
-        if($validator->fails()){
+
+        if ($validator->fails()) {
             return response()->json([
                 "Status" => "Failed",
                 "Error" => $validator->errors()->toJson()
@@ -72,7 +72,7 @@ class PaymentController extends Controller
 
         $payment = Payment::findOrFail($request->id);
 
-        $payment -> update(
+        $payment->update(
             $validator->validated()
         );
 

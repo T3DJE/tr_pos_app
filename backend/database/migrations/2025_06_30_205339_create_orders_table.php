@@ -16,7 +16,6 @@ return new class extends Migration
             $table->string("customer_name");
             $table->foreignId("id_payment")->constrained("payments")->onDelete("cascade");
             $table->foreignId("id_member")->constrained("members")->onDelete("cascade");
-            $table->foreignId("id_order_items")->constrained("order_items")->onDelete("cascade");
             $table->decimal("total_harga", 10, 2);
             $table->timestamps();
         });
