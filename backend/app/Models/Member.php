@@ -14,4 +14,9 @@ class Member extends Model
         "nama_member",
         "no_telpon"
     ];
+
+    public function order()
+    {
+        return $this->hasMany(Order::class);
+    }
 }

@@ -13,4 +13,9 @@ class Payment extends Model
     protected $fillable = [
         "nama_payment"
     ];
+
+    public function order()
+    {
+        return $this->hasMany(Order::class);
+    }
 }
