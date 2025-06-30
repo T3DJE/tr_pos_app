@@ -6,7 +6,6 @@ use App\Http\Controllers\Api\MemberController;
 use App\Http\Controllers\Api\SupplierController;
 use Illuminate\Support\Facades\Route;
 
-
 Route::group([
     'prefix' => 'auth'
 ], function () {
@@ -23,7 +22,7 @@ Route::middleware('auth:api')->group(function () {
 
         // Member Router
         Route::get('/readmember', [MemberController::class, 'index']);
-        Route::get('/getbyid/{id}', [MemberController::class, 'show']);
+        Route::get('/getbyidmember/{id}', [MemberController::class, 'show']);
         Route::post('/createmember', [MemberController::class, 'create']);
         Route::put('/updatemember', [MemberController::class, 'update']);
         Route::delete('/deletemember/{id}', [MemberController::class, 'destroy']);
