@@ -13,6 +13,8 @@ return new class extends Migration
     {
         Schema::create('purchase_histories', function (Blueprint $table) {
             $table->id();
+            $table->foreignId('order_id')->constrained('orders')->onDelete('cascade');
+            $table->string("status");
             $table->timestamps();
         });
     }

@@ -9,10 +9,7 @@ use Illuminate\Support\Facades\Validator;
 
 class PaymentController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
-    public function index()
+    public function indexpayment()
     {
         $query = Payment::all();
         return response()->json([
@@ -21,10 +18,7 @@ class PaymentController extends Controller
         ], 200);
     }
 
-    /**
-     * Show the form for creating a new resource.
-     */
-    public function create(Request $request)
+    public function createpayment(Request $request)
     {
         $validator = Validator::make($request->all(), [
             'nama_payment' => 'required|string'
@@ -48,7 +42,7 @@ class PaymentController extends Controller
         ], 201);
     }
 
-    public function show(String $id)
+    public function getbyidpayment(String $id)
     {
         $query = Payment::find($id);
         return response()->json([
@@ -57,7 +51,7 @@ class PaymentController extends Controller
         ], 200);
     }
 
-    public function update(Request $request)
+    public function updatepayment(Request $request)
     {
         $validator = Validator::make($request->all(), [
             'nama_method' => 'required|string',
@@ -83,7 +77,7 @@ class PaymentController extends Controller
         ], 201);
     }
 
-    public function destroy(String $id)
+    public function destroypayment(String $id)
     {
         $idpayment = Payment::find($id)->delete();
         return response()->json([

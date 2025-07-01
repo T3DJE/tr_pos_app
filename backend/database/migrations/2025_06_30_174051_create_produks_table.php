@@ -13,7 +13,6 @@ return new class extends Migration
     {
         Schema::create('produks', function (Blueprint $table) {
             $table->id();
-            $table->string('kode_produk');
             $table->decimal('harga_produk',10,2);
             $table->foreignId("id_category")->constrained("categories")->onDelete("cascade");
             $table->foreignId("id_supplier")->constrained("suppliers")->onDelete("cascade");

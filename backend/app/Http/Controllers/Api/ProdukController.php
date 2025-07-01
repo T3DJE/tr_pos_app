@@ -21,7 +21,6 @@ class ProdukController extends Controller
     public function createproduk(Request $request)
     {
         $validator = Validator::make($request->all(), [
-            'kode_produk' => 'required|string',
             'harga_produk' => 'required|numeric',
             'id_category' => 'required|exists:categories,id',
             'id_supplier' => 'required|exists:suppliers,id',
@@ -54,16 +53,9 @@ class ProdukController extends Controller
         ], 201);
     }
 
-    public function getbyid(String $id)
+    public function getbyidproduk(String $id)
     {
-        $produk = Produk::select(
-            'id',
-            'kode_produk',
-            'nama_produk',
-            'stok_produk',
-            'harga_produk',
-            'category_produk',
-            'gambar_produk')->find($id);
+        $produk = Produk::find($id) -> get();
         return response()->json([
             "Status" => "Success",
             "Response" => "Successfully Get ID: $id Produk",
@@ -71,10 +63,18 @@ class ProdukController extends Controller
         ], 201);
     }
 
-    public function update(Request $request)
+    public function getbycategoryproduk(String $category){
+        $produk = Produk::where('id_category', $category) -> get();
+        return response()->json([
+            "Status" => "Success",
+            "Response" => "Successfully Get ID: $category Produk",
+            "JSON" => $produk
+        ], 201);
+    }
+
+    public function updateproduk(Request $request)
     {
         $validator = Validator::make($request -> all(),[
-            'kode_produk' => 'required|string',
             'nama_produk' => 'required|string',
             'stok_produk' => 'required|integer',
             'harga_produk' => 'required|numeric',
@@ -103,7 +103,7 @@ class ProdukController extends Controller
 
     }
 
-    public function destroy(String $id)
+    public function destroyproduk(String $id)
     {
         $produk = Produk::find($id)->delete();
         return response()->json([

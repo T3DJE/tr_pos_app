@@ -13,6 +13,7 @@ class Order extends Model
         "customer_name",
         "id_payment",
         "id_member",
+        "pembayaran",
         "total_harga"
     ];
 
@@ -29,5 +30,10 @@ class Order extends Model
     public function payment()
     {
         return $this->belongsTo(Payment::class, 'id_payment');
+    }
+
+    public function history()
+    {
+        return $this->hasMany(PurchaseHistory::class);
     }
 }
