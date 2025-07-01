@@ -19,7 +19,7 @@ class OrderController extends Controller
     {
         $order = OrderItem::with(["produks"])->get();
         return response()->json([
-            "Status" => "Succes",
+            "Status" => "Success",
             "Data" => $order
         ], 200);
     }
