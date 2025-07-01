@@ -15,7 +15,8 @@ return new class extends Migration
             $table->id();
             $table->string("customer_name");
             $table->foreignId("id_payment")->constrained("payments")->onDelete("cascade");
-            $table->foreignId("id_member")->constrained("members")->onDelete("cascade")->nullable();
+            $table->unsignedBigInteger("id_member")->nullable();
+            $table->foreign("id_member")->references("id")->on("members")->onDelete("cascade");
             $table->decimal("pembayaran", 10, 2)->nullable();
             $table->decimal("total_harga", 10, 2);
             $table->timestamps();

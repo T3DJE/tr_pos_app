@@ -67,11 +67,11 @@ class OrderController extends Controller
                 $totalHarga -= $totalHarga * 5 / 100;
             }
         }
-
+        
         $order = Order::create([
             "customer_name" => $validated["customer_name"],
             "id_payment" => $validated["id_payment"],
-            "id_member" => $validated["id_member"],
+            "id_member" => $validated["id_member"] ?? null,
             "total_harga" => $totalHarga
         ]);
 
