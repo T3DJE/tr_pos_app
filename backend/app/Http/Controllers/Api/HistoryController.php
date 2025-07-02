@@ -9,7 +9,7 @@ class HistoryController extends Controller
 {
     public function index()
     {
-        $history = PurchaseHistory::with(['order'])->get();
+        $history = PurchaseHistory::with(['order.pembayaran'])->get();
         return response()->json([
             "Status" => "Succes",
             "Data" => $history

@@ -6,16 +6,16 @@ use App\Http\Controllers\Controller;
 use App\Models\Member;
 use App\Models\Order;
 use App\Models\OrderItem;
+use App\Models\Pembayaran;
 use App\Models\Produk;
 use App\Models\PurchaseHistory;
 use App\Models\Supplier;
-use Illuminate\Auth\Events\Validated;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 
 class OrderController extends Controller
 {
-    public function transaksi(Request $request)
+    public function transaksi()
     {
         $order = OrderItem::with(["produks"])->get();
         return response()->json([

@@ -6,6 +6,7 @@ use App\Http\Controllers\Api\HistoryController;
 use App\Http\Controllers\Api\MemberController;
 use App\Http\Controllers\Api\OrderController;
 use App\Http\Controllers\Api\PaymentController;
+use App\Http\Controllers\Api\PembayaranController;
 use App\Http\Controllers\Api\ProdukController;
 use App\Http\Controllers\Api\SupplierController;
 use Illuminate\Support\Facades\Route;
@@ -20,31 +21,30 @@ Route::group([
 
 Route::middleware('auth:api')->group(function () {
     Route::group(['middleware' => 'admin'], function () {
-
         // Cashier Routes
         Route::post('/registercashier', [AuthController::class, 'registercashier']);
-
+        
         // Member Router
         Route::get('/readmember', [MemberController::class, 'index']);
         Route::get('/getbyidmember/{id}', [MemberController::class, 'show']);
         Route::post('/createmember', [MemberController::class, 'create']);
         Route::put('/updatemember', [MemberController::class, 'update']);
         Route::delete('/deletemember/{id}', [MemberController::class, 'destroy']);
-
+        
         // Supplier Routes
         Route::get('/readsupplier', [SupplierController::class, 'readsupplier']);
         Route::post('/createsupplier', [SupplierController::class, 'createsupplier']);
         Route::get('/showsupplier/{id}', [SupplierController::class, 'showsupplier']);
         Route::put('/updatesupplier', [SupplierController::class, 'updatesupplier']);
         Route::delete('/destroysupplier/{id}', [SupplierController::class, 'destroysupplier']);
-
+        
         // Category Routes
         Route::get('/readcategory', [CategoryController::class, 'index']);
         Route::post('/createcategory', [CategoryController::class, 'createcategory']);
         Route::get('/showcategory/{id}', [CategoryController::class, 'showcategory']);
         Route::put('/updatecategory', [CategoryController::class, 'updatecategory']);
         Route::delete('/destroycategory/{id}', [CategoryController::class, 'destroycategory']);
-
+        
         // Produk Routes
         Route::get('/readproduk', [ProdukController::class, 'index']);
         Route::post('/createproduk', [ProdukController::class, 'createproduk']);
@@ -52,61 +52,22 @@ Route::middleware('auth:api')->group(function () {
         Route::get('/getbycategoryproduk/{id}', [ProdukController::class, 'getbycategoryproduk']);
         Route::put('/updateproduk', [ProdukController::class, 'updateproduk']);
         Route::delete('/destroyproduk/{id}', [ProdukController::class, 'destroyproduk']);
-
+        
         // Cart Routes
         Route::get('/readcart', [OrderController::class, 'index']);
         Route::post('/createcart', [OrderController::class, 'createcart']);
-
+        
         // Payment Routes
         Route::get('/readpayment', [PaymentController::class, 'indexpayment']);
         Route::post('/createpayment', [PaymentController::class, 'createpayment']);
         Route::get('/getbyidpayment/{id}', [PaymentController::class, 'getbyidpayment']);
         Route::put('/updatepayment', [PaymentController::class, 'create']);
         Route::delete('/destroypayment/{id}', [PaymentController::class, 'create']);
-
+        
         // History Routes
         Route::get('/readhistory', [HistoryController::class, 'index']);
+        
+        // Pembayaran Routes
+        Route::post('/createpembayaran', [PembayaranController::class, 'createbayar']);
     });
 });
-// Member Router
-Route::get('/readmember', [MemberController::class, 'index']);
-Route::get('/getbyidmember/{id}', [MemberController::class, 'show']);
-Route::post('/createmember', [MemberController::class, 'create']);
-Route::put('/updatemember', [MemberController::class, 'update']);
-Route::delete('/deletemember/{id}', [MemberController::class, 'destroy']);
-
-// Supplier Routes
-Route::get('/readsupplier', [SupplierController::class, 'readsupplier']);
-Route::post('/createsupplier', [SupplierController::class, 'createsupplier']);
-Route::get('/showsupplier/{id}', [SupplierController::class, 'showsupplier']);
-Route::put('/updatesupplier', [SupplierController::class, 'updatesupplier']);
-Route::delete('/destroysupplier/{id}', [SupplierController::class, 'destroysupplier']);
-
-// Category Routes
-Route::get('/readcategory', [CategoryController::class, 'index']);
-Route::post('/createcategory', [CategoryController::class, 'createcategory']);
-Route::get('/showcategory/{id}', [CategoryController::class, 'showcategory']);
-Route::put('/updatecategory', [CategoryController::class, 'updatecategory']);
-Route::delete('/destroycategory/{id}', [CategoryController::class, 'destroycategory']);
-
-// Produk Routes
-Route::get('/readproduk', [ProdukController::class, 'index']);
-Route::post('/createproduk', [ProdukController::class, 'createproduk']);
-Route::get('/showproduk/{id}', [ProdukController::class, 'getbyidproduk']);
-Route::get('/getbycategoryproduk/{id}', [ProdukController::class, 'getbycategoryproduk']);
-Route::put('/updateproduk', [ProdukController::class, 'updateproduk']);
-Route::delete('/destroyproduk/{id}', [ProdukController::class, 'destroyproduk']);
-
-// Cart Routes
-Route::get('/readcart', [OrderController::class, 'index']);
-Route::post('/createcart', [OrderController::class, 'createcart']);
-
-// Payment Routes
-Route::get('/readpayment', [PaymentController::class, 'indexpayment']);
-Route::post('/createpayment', [PaymentController::class, 'createpayment']);
-Route::get('/getbyidpayment/{id}', [PaymentController::class, 'getbyidpayment']);
-Route::put('/updatepayment', [PaymentController::class, 'create']);
-Route::delete('/destroypayment/{id}', [PaymentController::class, 'create']);
-
-// History Routes
-Route::get('/readhistory', [HistoryController::class, 'index']);
