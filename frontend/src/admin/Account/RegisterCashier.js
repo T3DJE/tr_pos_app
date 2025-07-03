@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import { registercashier } from '../../axios'
-import { useNavigate } from 'react-router-dom'
+// import { useNavigate } from 'react-router-dom'
 
 function RegisterCashier() {
   const [form, setForm] = useState({
@@ -9,7 +9,6 @@ function RegisterCashier() {
     password: "",
     password_confirmation: ""
   })
-  const navigate = useNavigate()
   const [type, setType] = useState(true)
 
   const changeVisible = () => {
