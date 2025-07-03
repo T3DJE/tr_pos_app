@@ -16,11 +16,13 @@ function AdminDashboard() {
             <br></br>
             <a href='/member'>Member</a>
             <br></br>
-            <a href='/product'>Product</a>
+            <a href='/supplier'>Supplier</a>
             <br></br>
             <a href='/payment'>Payment</a>
             <br></br>
-            <a href='/supplier'>Supplier</a>
+            <a href='/product'>Product</a>
+            <br></br>
+            <a href='/registercashier'>Create Cashier Account</a>
             <br></br>
             <a href='/historytransaction'>History Transaction</a>
             <br></br>

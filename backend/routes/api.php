@@ -62,8 +62,8 @@ Route::middleware('auth:api')->group(function () {
         Route::get('/readpayment', [PaymentController::class, 'indexpayment']);
         Route::post('/createpayment', [PaymentController::class, 'createpayment']);
         Route::get('/getbyidpayment/{id}', [PaymentController::class, 'getbyidpayment']);
-        Route::put('/updatepayment', [PaymentController::class, 'create']);
-        Route::delete('/destroypayment/{id}', [PaymentController::class, 'create']);
+        Route::put('/updatepayment', [PaymentController::class, 'updatepayment']);
+        Route::delete('/destroypayment/{id}', [PaymentController::class, 'destroypayment']);
 
         // History Routes
         Route::get('/readhistory', [HistoryController::class, 'index']);

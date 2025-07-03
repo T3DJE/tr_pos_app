@@ -1,43 +1,37 @@
 import React, { useEffect, useState } from 'react'
-import { readCategory, createCategory, deleteCategory, readIdCategory, updateCategory } from '../../axios'
+import { readPayment, createPayment, deletePayment, readIdPayment, updatePayment } from '../../axios'
 
-function Category() {
+function Payment() {
     const [form, setForm] = useState({
-        nama_category: ""
+        nama_payment: ""
     })
-    const [category, setCategory] = useState([])
+    const [payment, setPayment] = useState([])
     const [idEdit, setIdEdit] = useState(null)
 
     useEffect(() => {
-        viewCategory()
+        viewPayment()
     }, [])
 
-    const viewCategory = async () => {
-        const datacategory = await readCategory()
-        setCategory(datacategory.data.Data)
+    const viewPayment = async () => {
+        const datapayment = await readPayment()
+        setPayment(datapayment.data.Data)
     }
-
-    // const logout = () => {
-    //     localStorage.removeItem('token')
-    //     localStorage.removeItem('user')
-    //     window.location.href = '/login'
-    // }
 
     const handleSubmit = async (e) => {
         e.preventDefault()
         try {
             const formData = new FormData()
-            formData.append("nama_category", form.nama_category)
+            formData.append("nama_payment", form.nama_payment)
             if (idEdit) {
-                await updateCategory(idEdit, formData)
+                await updatePayment(idEdit, formData)
             } else {
-                await createCategory(formData)
+                await createPayment(formData)
             }
             setForm({
-                nama_category: ""
+                nama_payment: ""
             })
             setIdEdit(null)
-            viewCategory()
+            viewPayment()
         } catch (error) {
             console.log(error)
         }
@@ -48,15 +42,15 @@ function Category() {
     }
 
     const handleDelete = async (id) => {
-        await deleteCategory(id)
-        viewCategory()
+        await deletePayment(id)
+        viewPayment()
     }
 
     const handleUpdate = async (id) => {
         try {
-            const datacatergoryid = await readIdCategory(id)
+            const datapaymentid = await readIdPayment(id)
             setForm({
-                nama_category: datacatergoryid.data.Data.nama_category
+                nama_payment: datapaymentid.data.Data.nama_payment
             })
             setIdEdit(id)
         } catch (error) {
@@ -66,24 +60,23 @@ function Category() {
 
     return (
         <div>
-            <h1>Category</h1>
+            <h1>Payment</h1>
             <a href='/admindashboard'>Back</a>
-            {/* <button onClick={logout}>Logout</button> */}
-            {category.map((item, index) => (
+            {payment.map((item, index) => (
                 <div key={item.id}>
-                    <p>{++index}. {item.nama_category}</p>
+                    <p>{++index}. {item.nama_payment}</p>
                     <button onClick={() => handleUpdate(item.id)}>Update</button>
                     <button onClick={() => handleDelete(item.id)}>Delete</button>
                 </div>
             ))}
 
-            <h3>Input Category</h3>
+            <h3>Input Payment</h3>
             <form onSubmit={handleSubmit}>
                 <input
                     type='text'
-                    name='nama_category'
-                    placeholder='Nama Category'
-                    value={form.nama_category}
+                    name='nama_payment'
+                    placeholder='Nama Payment'
+                    value={form.nama_payment}
                     onChange={handleChange}
                     required
                 />
@@ -93,4 +86,4 @@ function Category() {
     )
 }
 
-export default Category
+export default Payment

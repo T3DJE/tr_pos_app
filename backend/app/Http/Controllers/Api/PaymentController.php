@@ -54,7 +54,7 @@ class PaymentController extends Controller
     public function updatepayment(Request $request)
     {
         $validator = Validator::make($request->all(), [
-            'nama_method' => 'required|string',
+            'nama_payment' => 'required|string',
         ]);
 
         if ($validator->fails()) {
