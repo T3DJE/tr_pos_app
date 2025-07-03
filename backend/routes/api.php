@@ -6,6 +6,7 @@ use App\Http\Controllers\Api\HistoryController;
 use App\Http\Controllers\Api\MemberController;
 use App\Http\Controllers\Api\OrderController;
 use App\Http\Controllers\Api\PaymentController;
+use App\Http\Controllers\Api\PembayaranController;
 use App\Http\Controllers\Api\ProdukController;
 use App\Http\Controllers\Api\SupplierController;
 use Illuminate\Support\Facades\Route;
@@ -20,10 +21,13 @@ Route::group([
 
 Route::middleware('auth:api')->group(function () {
     Route::group(['middleware' => 'admin'], function () {
-
         // Cashier Routes
         Route::post('/registercashier', [AuthController::class, 'registercashier']);
+<<<<<<< HEAD
 
+=======
+        
+>>>>>>> 89831a8867e10c3d4796a4451563f371f2f68b39
         // Member Router
         Route::get('/readmember', [MemberController::class, 'index']);
         Route::get('/getbyidmember/{id}', [MemberController::class, 'show']);
@@ -66,5 +70,11 @@ Route::middleware('auth:api')->group(function () {
         
         // History Routes
         Route::get('/readhistory', [HistoryController::class, 'index']);
+<<<<<<< HEAD
+=======
+        
+        // Pembayaran Routes
+        Route::post('/createpembayaran', [PembayaranController::class, 'createbayar']);
+>>>>>>> 89831a8867e10c3d4796a4451563f371f2f68b39
     });
 });

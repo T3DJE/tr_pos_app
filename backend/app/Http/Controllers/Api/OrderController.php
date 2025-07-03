@@ -6,16 +6,16 @@ use App\Http\Controllers\Controller;
 use App\Models\Member;
 use App\Models\Order;
 use App\Models\OrderItem;
+use App\Models\Pembayaran;
 use App\Models\Produk;
 use App\Models\PurchaseHistory;
 use App\Models\Supplier;
-use Illuminate\Auth\Events\Validated;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 
 class OrderController extends Controller
-{    
-    public function transaksi(Request $request)
+{
+    public function transaksi()
     {
         $order = OrderItem::with(["produks"])->get();
         return response()->json([
@@ -49,21 +49,21 @@ class OrderController extends Controller
         foreach ($validated["array"] as $item) {
             $product = Produk::find($item["id_product"]);
             $totalHarga += $product->harga_produk * $item["quantity"];
-            
+
             $stokproduk = Supplier::find($item["id_product"]);
-            if ($stokproduk->stok_produk <= $item["quantity"]){
+            if ($stokproduk->stok_produk <= $item["quantity"]) {
                 return response()->json([
                     "Error" => "Stok Tidak Mencukupi"
                 ], 200);
             }
             $stoksisa = $stokproduk->stok_produk - $item["quantity"];
-            $stokproduk -> stok_produk = $stoksisa;
-            $stokproduk -> save();
+            $stokproduk->stok_produk = $stoksisa;
+            $stokproduk->save();
         }
 
         if (!empty($validated["id_member"])) {
-        $member = Member::find($validated["id_member"]);
-            if($member){
+            $member = Member::find($validated["id_member"]);
+            if ($member) {
                 $totalHarga -= $totalHarga * 5 / 100;
             }
         }
