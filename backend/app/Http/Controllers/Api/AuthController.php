@@ -11,7 +11,8 @@ use Tymon\JWTAuth\Facades\JWTAuth;
 
 class AuthController extends Controller
 {
-    public function __construct(){
+    public function __construct()
+    {
         $this->middleware('auth:api', ['except' => ['login', 'register']]);
     }
 
@@ -25,14 +26,15 @@ class AuthController extends Controller
         ]);
     }
 
-    public function register(Request  $request){
+    public function register(Request  $request)
+    {
         $validator = Validator::make($request->all(), [
             'name' => 'required|string|between:2, 100',
             'email' => 'required|string|email|max:100|unique:users',
             'password' => 'required|string|confirmed|min:8|regex:/^(?=.*[A-Z])(?=.*[\W_]).+$/',
         ]);
 
-        if($validator->fails()){
+        if ($validator->fails()) {
             return response()->json([
                 "Status" => "Failed",
                 "Error" => $validator->errors()->toJson()
@@ -55,14 +57,15 @@ class AuthController extends Controller
     }
 
 
-    public function registercashier(Request  $request){
+    public function registercashier(Request  $request)
+    {
         $validator = Validator::make($request->all(), [
             'name' => 'required|string|between:2, 100',
             'email' => 'required|string|email|max:100|unique:users',
             'password' => 'required|string|confirmed|min:8|regex:/^(?=.*[A-Z])(?=.*[\W_]).+$/',
         ]);
 
-        if($validator->fails()){
+        if ($validator->fails()) {
             return response()->json([
                 "Status" => "Failed",
                 "Error" => $validator->errors()->toJson()
@@ -85,13 +88,14 @@ class AuthController extends Controller
     }
 
 
-    public function login(Request $request){
+    public function login(Request $request)
+    {
         $validator = Validator::make($request->all(), [
             'email' => 'required|email',
             'password' => 'required|string|min:8',
         ]);
 
-        if($validator->fails()){
+        if ($validator->fails()) {
             return response()->json([
                 "Status" => "Failed",
                 "Error" => "Email or password is incorrect."
@@ -100,7 +104,7 @@ class AuthController extends Controller
 
         $token = JWTAuth::attempt($validator->validated());
 
-        if(!$token){
+        if (!$token) {
             return response()->json([
                 "Status" => "Failed",
                 "Error" => $validator->errors()->toJson()
@@ -109,11 +113,12 @@ class AuthController extends Controller
         return $this->createNewToken($token);
     }
 
-    public function logout(){
+    public function logout()
+    {
         Auth::logout();
         return response()->json([
-                "Status" => "Success",
-                "Response" => "Successfully Logout"
+            "Status" => "Success",
+            "Response" => "Successfully Logout"
         ], 200);
     }
 }

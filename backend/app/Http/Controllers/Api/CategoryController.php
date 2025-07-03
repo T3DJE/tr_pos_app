@@ -21,7 +21,7 @@ class CategoryController extends Controller
     public function createcategory(Request $request)
     {
         $validator = Validator::make($request -> all(),[
-            'nama_category' => 'required|string'
+            'nama_category' => 'required|string|unique'
         ]);
 
         if($validator->fails()){

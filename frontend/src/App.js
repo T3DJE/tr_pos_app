@@ -1,24 +1,30 @@
-import logo from './logo.svg';
-import './App.css';
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import Register from './auth/Register'
+import Login from './auth/Login'
+import RegisterCashier from './auth/../admin/Account/RegisterCashier'
+import POSCashier from './Cashier/PointOfSale'
+import AdminDashboard from "./admin/Dashboard/AdminDashboard";
+import Category from "./admin/Category/Category"
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <>
+      <Router>
+        <Routes>
+          //auth
+          <Route path="/register" element={<Register />}></Route>
+          <Route path="/login" element={<Login />}></Route>
+
+          //admin feature
+          <Route path="/registercashier" element={<RegisterCashier />}></Route>
+          <Route path="/admindashboard" element={<AdminDashboard />}></Route>
+          <Route path="/category" element={<Category />}></Route>
+
+        //cahier feature
+          <Route path="/poscashier" element={<POSCashier />}></Route>
+        </Routes>
+      </Router>
+    </>
   );
 }
 
