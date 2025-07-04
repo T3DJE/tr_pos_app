@@ -90,10 +90,33 @@ function Product() {
         }
     }
 
+    const handleViewCategory = async (id) => {
+        try {
+            const datacatproid = await categoryIdProduct(id)
+            setProduct(datacatproid.data.JSON)
+            setIdEdit(id)
+        } catch (error) {
+            console.log(error)
+        }
+    }
+
+    const handleAllCategory = async () => {
+        const dataproduct = await readProduct()
+        setProduct(dataproduct.data.Data)
+    }
+
+
     return (
         <div>
             <h1>Product</h1>
             <a href='/admindashboard'>Back</a>
+            <p>Lihat By Category: </p>
+            <button onClick={() => handleAllCategory()}>All</button>
+            {categories.map((item) => (
+                <div key={item.id}>
+                    <button onClick={() => handleViewCategory(item.id)}>{item.nama_category}</button>
+                </div>
+            ))}
             {product.map((item) => (
                 <div key={item.id}>
                     <p>Nama Produk: {item.supplier.nama_produk}</p>

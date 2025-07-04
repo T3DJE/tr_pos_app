@@ -21,14 +21,14 @@ class SupplierController extends Controller
 
     public function createsupplier(Request $request)
     {
-        $validator = Validator::make($request -> all(),[
+        $validator = Validator::make($request->all(), [
             'nama_supplier' => 'required|string',
             'alamat_supplier' => 'required|string',
-            'nama_produk' => 'required|string',
+            'nama_produk' => 'required|string|unique:suppliers,nama_produk',
             'stok_produk' => 'required|integer|min:1'
         ]);
 
-        if($validator->fails()){
+        if ($validator->fails()) {
             return response()->json([
                 "Status" => "Failed",
                 "Error" => $validator->errors()->toJson()
@@ -58,14 +58,14 @@ class SupplierController extends Controller
 
     public function updatesupplier(Request $request)
     {
-        $validator = Validator::make($request -> all(),[
+        $validator = Validator::make($request->all(), [
             'nama_supplier' => 'required|string',
             'alamat_supplier' => 'required|string',
             'nama_produk' => 'required|string',
             'stok_produk' => 'required|integer|min:1'
         ]);
-        
-        if($validator->fails()){
+
+        if ($validator->fails()) {
             return response()->json([
                 "Status" => "Failed",
                 "Error" => $validator->errors()->toJson()
@@ -74,7 +74,7 @@ class SupplierController extends Controller
 
         $supplier = Supplier::findOrFail($request->id);
 
-        $supplier -> update(
+        $supplier->update(
             $validator->validated()
         );
 
