@@ -11,10 +11,12 @@ class PurchaseHistory extends Model
 
     protected $fillable = [
         "order_id",
-        "status"
+        "status",
+        "kembalian"
     ];
 
-    public function order(){
+    public function order()
+    {
         return $this->belongsTo(Order::class, "order_id");
     }
 }

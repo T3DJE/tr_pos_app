@@ -6,7 +6,7 @@ use App\Http\Controllers\Api\HistoryController;
 use App\Http\Controllers\Api\MemberController;
 use App\Http\Controllers\Api\OrderController;
 use App\Http\Controllers\Api\PaymentController;
-use App\Http\Controllers\Api\PembayaranController;
+use App\Http\Controllers\Api\POSController;
 use App\Http\Controllers\Api\ProdukController;
 use App\Http\Controllers\Api\SupplierController;
 use Illuminate\Support\Facades\Route;
@@ -20,8 +20,6 @@ Route::group([
 });
 
 Route::middleware('auth:api')->group(function () {
-
-    Route::group(['middleware' => 'cashier'], function () {});
     Route::group(['middleware' => 'admin'], function () {
         // Cashier Routes
         Route::post('/registercashier', [AuthController::class, 'registercashier']);
@@ -54,10 +52,6 @@ Route::middleware('auth:api')->group(function () {
         Route::put('/updateproduk', [ProdukController::class, 'updateproduk']);
         Route::delete('/destroyproduk/{id}', [ProdukController::class, 'destroyproduk']);
 
-        // Cart Routes
-        Route::get('/readcart', [OrderController::class, 'index']);
-        Route::post('/createcart', [OrderController::class, 'createcart']);
-
         // Payment Routes
         Route::get('/readpayment', [PaymentController::class, 'indexpayment']);
         Route::post('/createpayment', [PaymentController::class, 'createpayment']);
@@ -67,5 +61,17 @@ Route::middleware('auth:api')->group(function () {
 
         // History Routes
         Route::get('/readhistory', [HistoryController::class, 'index']);
+        Route::get('/readcashieracc', [AuthController::class, 'index']);
+    });
+
+    Route::group(['middleware' => 'cashier'], function () {
+        Route::get('/readcashierproduk', [POSController::class, 'index']);
+        Route::get('/readcart', [OrderController::class, 'index']);
+        Route::post('/createcart', [OrderController::class, 'createcart']);
+        Route::get('/readcashierpayment', [PaymentController::class, 'indexpayment']);
+        Route::get('/readcashiermember', [MemberController::class, 'index']);
+        Route::get('/readcashiercategory', [CategoryController::class, 'index']);
+        Route::get('/getbycashiercategoryproduk/{id}', [ProdukController::class, 'getbycategoryproduk']);
+        Route::get('/readcashiersupplier', [SupplierController::class, 'readsupplier']);
     });
 });

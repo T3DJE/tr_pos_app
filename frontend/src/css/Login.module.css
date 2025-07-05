@@ -1,0 +1,126 @@
+@import url('https://fonts.googleapis.com/css2?family=Karantina:wght@300;400;700&family=Montserrat:ital,wght@0,100..900;1,100..900&family=Plus+Jakarta+Sans:ital,wght@0,200..800;1,200..800&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap');
+
+:root {
+    --white--color: #FFFFFF;
+    --bg--color: #F6F6F6;
+    --main--color: #7279DC;
+    --outline--color: #D8D8D8;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    font-family: 'Poppins', sans-serif;
+    box-sizing: border-box;
+}
+
+html {
+    scroll-behavior: smooth;
+}
+
+body {
+    background-color: var(--bg--color);
+}
+
+.logo {
+    display: flex;
+    align-items: center;
+    gap: 7px;
+    margin-top: 5rem;
+    margin-left: 6.4rem;
+}
+
+.logo-font {
+    display: flex;
+    font-size: 14px;
+    font-weight: 600;
+    gap: 1px;
+}
+
+.logo-font p:nth-child(2) {
+    color: var(--main--color);
+}
+
+.login {
+    display: flex;
+    flex-direction: column;
+    top: 50%;
+    left: 50%;
+    position: absolute;
+    transform: translate(-50%, -50%);
+    gap: 35px;
+    margin-top: 3rem;
+}
+
+.login form {
+    display: flex;
+    flex-direction: column;
+    gap: 35px;
+}
+
+.loginp {
+    font-size: 15px;
+    font-weight: 600;
+}
+
+.login form input {
+    width: 400px;
+    height: 45px;
+    border: none;
+    border-bottom: 1px solid var(--outline--color);
+    background-color: var(--bg--color);
+    text-indent: 25px;
+    font-size: 13px;
+    transition: all 0.3s ease;
+}
+
+.login form input:focus {
+    outline: none;
+    box-shadow: none;
+}
+
+.login form input::placeholder {
+    color: #B8B8B8;
+}
+
+.btnLogin {
+    width: 400px;
+    height: 45px;
+    color: var(--white--color);
+    background-color: var(--main--color);
+    border: none;
+    border-radius: 100px;
+    cursor: pointer;
+    margin-top: 0.3rem;
+}
+
+.changeVisible {
+    position: absolute;
+    right: 0;
+    margin-top: 6rem;
+    margin-right: 1rem;
+    cursor: pointer;
+}
+
+.changeVisibleRegister {
+    position: absolute;
+    right: 0;
+    margin-top: 11rem;
+    margin-right: 1rem;
+    cursor: pointer;
+}
+
+.changeVisibleRegister2 {
+    position: absolute;
+    right: 0;
+    margin-top: 16rem;
+    margin-right: 1rem;
+    cursor: pointer;
+}
+
+input:-webkit-autofill {
+    -webkit-box-shadow: 0 0 0 1000px var(--bg--color) inset !important;
+    box-shadow: 0 0 0 1000px var(--bg--color) inset !important;
+    -webkit-text-fill-color: black !important;
+    transition: background-color 5000s ease-in-out 0s;
+}

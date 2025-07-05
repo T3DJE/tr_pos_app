@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import { registercashier } from '../../axios'
-// import { useNavigate } from 'react-router-dom'
+import AdminProtect from '../../AdminProtect'
 
 function RegisterCashier() {
   const [form, setForm] = useState({
@@ -23,49 +23,62 @@ function RegisterCashier() {
     e.preventDefault()
     try {
       await registercashier(form)
+      setForm({
+        name: "",
+        email: "",
+        password: "",
+        password_confirmation: ""
+      })
     } catch (error) {
       console.log("Crashing App: " + error)
     }
   }
   return (
-    <>
-      <h1>Register Cashier</h1>
-      <form onSubmit={handleSubmit}>
-        <input
-          type='text'
-          name='name'
-          placeholder='Nama'
-          onChange={handleChange}
-          required
-        />
-        <input
-          type='email'
-          name='email'
-          placeholder='Email'
-          onChange={handleChange}
-          required
-        />
-        <input
-          type={type ? "text" : "password"}
-          name='password'
-          placeholder='Password'
-          onChange={handleChange}
-          required
-        />
-        <input
-          type={type ? "text" : "password"}
-          name='password_confirmation'
-          placeholder='Password Confirmation'
-          onChange={handleChange}
-          required
-        />
-        <input
-          type='checkbox'
-          onClick={changeVisible}
-        />
-        <button type='submit'>Register</button>
-      </form>
-    </>
+    <AdminProtect>
+      <div>
+        <h1>Register Cashier</h1>
+        <a href='/admindashboard'>Back</a>
+        <form onSubmit={handleSubmit}>
+          <input
+            type='text'
+            name='name'
+            placeholder='Nama'
+            onChange={handleChange}
+            value={form.name}
+            required
+          />
+          <input
+            type='email'
+            name='email'
+            placeholder='Email'
+            onChange={handleChange}
+            value={form.email}
+            required
+          />
+          <input
+            type={type ? "text" : "password"}
+            name='password'
+            placeholder='Password'
+            onChange={handleChange}
+            value={form.password}
+            required
+          />
+          <input
+            type={type ? "text" : "password"}
+            name='password_confirmation'
+            placeholder='Password Confirmation'
+            onChange={handleChange}
+            value={form.password_confirmation}
+            required
+          />
+          <input
+            type='checkbox'
+            onClick={changeVisible}
+          />
+          <button type='submit'>Register</button>
+        </form>
+      </div>
+    </AdminProtect>
   )
 }
 

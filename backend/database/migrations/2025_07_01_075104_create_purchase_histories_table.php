@@ -15,6 +15,7 @@ return new class extends Migration
             $table->id();
             $table->foreignId('order_id')->constrained('orders')->onDelete('cascade');
             $table->string("status");
+            $table->decimal("kembalian", 10, 2)->nullable();
             $table->timestamps();
         });
     }

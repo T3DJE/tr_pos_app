@@ -121,4 +121,12 @@ class AuthController extends Controller
             "Response" => "Successfully Logout"
         ], 200);
     }
+
+    public function index(){
+        $cashiers = User::where('role', 'cashier')->get();
+        return response()->json([
+            'Status' => 'Success',
+            'Data' => $cashiers
+        ], 200);
+    }
 }

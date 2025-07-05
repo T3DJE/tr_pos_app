@@ -53,7 +53,6 @@ class MemberController extends Controller
             "Response" => "Successfully Get ID: $id Member",
             "JSON" => $member
         ], 201);
-
     }
 
     public function update(Request $request)
@@ -83,7 +82,7 @@ class MemberController extends Controller
             "JSON" => $member
         ], 201);
     }
-    
+
     public function destroy(String $id)
     {
         $member = Member::find($id)->delete();

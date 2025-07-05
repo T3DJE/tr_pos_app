@@ -9,17 +9,15 @@ import Member from "./admin/Member/Member"
 import Supplier from "./admin/Supplier/Supplier";
 import Payment from "./admin/Payment/Payment";
 import Product from "./admin/Product/Product"
+import HT from "./admin/History/HistoryTransaction";
 
 function App() {
   return (
     <>
       <Router>
         <Routes>
-          //auth
           <Route path="/register" element={<Register />}></Route>
-          <Route path="/login" element={<Login />}></Route>
-
-          //admin feature
+          <Route path="/" element={<Login />}></Route>
           <Route path="/registercashier" element={<RegisterCashier />}></Route>
           <Route path="/admindashboard" element={<AdminDashboard />}></Route>
           <Route path="/category" element={<Category />}></Route>
@@ -27,8 +25,7 @@ function App() {
           <Route path="/supplier" element={<Supplier />}></Route>
           <Route path="/payment" element={<Payment />}></Route>
           <Route path="/product" element={<Product />}></Route>
-
-        //cahier feature
+          <Route path="/historytransaction" element={<HT />}></Route>
           <Route path="/poscashier" element={<POSCashier />}></Route>
         </Routes>
       </Router>

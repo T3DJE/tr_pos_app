@@ -17,6 +17,9 @@ export const register = (data) => axios.post(`${microservice}register`, data)
 // admin
 export const login = (data) => API.post(`auth/login`, data)
 
+export const readHistory = () => API.get(`/readhistory`)
+export const readCashierAcc = () => API.get(`/readcashieracc`)
+
 //admin category
 export const readCategory = () => API.get(`/readcategory`)
 export const createCategory = (data) => API.post(`/createcategory`, data)
@@ -74,3 +77,10 @@ export const updateProduct = (id, data) => {
 }
 //cashier
 export const registercashier = (data) => API.post(`/registercashier`, data)
+export const readCashierProduct = () => API.get(`/readcashierproduk`)
+export const createOrder = (data) => API.post(`/createcart`, data)
+export const readCashierPayment = () => API.get(`/readcashierpayment`)
+export const readCashierMember = () => API.get(`/readcashiermember`)
+export const readCashierCategory = () => API.get(`/readcashiercategory`)
+export const readCashierIdProduct = (id) => API.get(`/getbycashiercategoryproduk/${id}`)
+export const readCashierSupplier = () => API.get(`/readcashiersupplier`)
