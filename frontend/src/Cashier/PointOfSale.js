@@ -11,7 +11,6 @@ import {
 } from '../axios';
 import styles from '../css/PointOfSale.module.css'
 import IconPos_P from './../images/IconPos-P.svg'
-import IconHistory_W from './../images/IconHistory-W.svg'
 import Iconlogout_W from './../images/IconLogout-W.svg'
 import LogoKasirKu from '../images/LogoKasirKu.svg'
 import CashierProfile from '../images/CashierProfile.svg'
@@ -277,7 +276,7 @@ function PointOfSale() {
         e.preventDefault()
         try {
             const result = await searchProduct({ search: searchForm.search })
-            if (!result) {
+            if (!result || !result.data || !result.data.JSON) {
                 toast.error('Pencarian tidak ketemu!', {
                     style: {
                         fontSize: '12px',
@@ -285,13 +284,22 @@ function PointOfSale() {
                         color: '#d00',
                     },
                 });
+            } else {
+                setProduct(result.data.JSON);
             }
-            searchForm({
-                search: " "
+            setSearchForm({
+                search: ""
             })
             setProduct(result.data.JSON)
         } catch (error) {
             console.error(error)
+            toast.error('Terjadi kesalahan saat mencari produk!', {
+                style: {
+                    fontSize: '12px',
+                    backgroundColor: '#fff0f0',
+                    color: '#d00',
+                },
+            });
         }
     }
 
@@ -319,12 +327,12 @@ function PointOfSale() {
                         <div className={styles["container-middle-top"]}>
                             <div className={styles.logo}>
                                 <a href='/poscashier'>
-                                    <img src={LogoKasirKu} width={35} />
+                                    <img src={LogoKasirKu} width={35} alt='logo-kasirku' />
                                 </a>
-                                    <div className={styles["logo-font"]}>
-                                        <p>Kasirku</p>
-                                        <p>Pos</p>
-                                    </div>
+                                <div className={styles["logo-font"]}>
+                                    <p>Kasirku</p>
+                                    <p>Pos</p>
+                                </div>
                             </div>
                             <div className={styles.cashierprofile}>
                                 <img src={CashierProfile} alt='cashier-profile' />
