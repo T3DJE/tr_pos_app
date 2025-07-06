@@ -45,21 +45,29 @@ class OrderController extends Controller
 
         $validated = $validator->validated();
         $totalHarga = 0;
-        $stoksisa = 0;
 
         foreach ($validated["array"] as $item) {
-            $product = Produk::find($item["id_product"]);
-            $totalHarga += $product->harga_produk * $item["quantity"];
+            //perubahan
+            $product = Produk::with('supplier')->find($item["id_product"]);
 
-            $stokproduk = Supplier::find($item["id_product"]);
-            if ($stokproduk->stok_produk <= $item["quantity"]) {
+            if (!$product) {
                 return response()->json([
-                    "Error" => "Stok Tidak Mencukupi"
-                ], 200);
+                    "Status" => "Failed",
+                    "Error" => "Produk tidak ditemukan"
+                ], 404);
             }
-            $stoksisa = $stokproduk->stok_produk - $item["quantity"];
-            $stokproduk->stok_produk = $stoksisa;
-            $stokproduk->save();
+
+            if ($product->supplier->stok_produk < $item["quantity"]) {
+                return response()->json([
+                    "Status" => "Failed",
+                    "Error" => "Stok tidak mencukupi untuk produk: " . $product->supplier->nama_produk
+                ], 400);
+            }
+
+            $product->supplier->stok_produk -= $item["quantity"];
+            $product->supplier->save();
+
+            $totalHarga += $product->harga_produk * $item["quantity"];
         }
 
         if (!empty($validated["id_member"])) {

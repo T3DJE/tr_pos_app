@@ -12,7 +12,7 @@ class POSController extends Controller
 
     public function index()
     {
-        $produk = Produk::with(['supplier', 'category'])->get();
+        $produk = Produk::with(['supplier', 'category'])->whereHas('supplier', function($q) {$q->where('stok_produk',">",0);})->orderBy("id", "asc")->get();
         return response()->json([
             "Status" => "Succes",
             "Data" => $produk
