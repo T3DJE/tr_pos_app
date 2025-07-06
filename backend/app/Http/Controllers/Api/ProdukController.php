@@ -74,6 +74,23 @@ class ProdukController extends Controller
         ], 201);
     }
 
+    public function search(Request $request)
+    {
+        $search = $request->input('search');
+
+        $produk = Produk::with(['supplier', 'category'])
+            ->whereHas('supplier', function ($query) use ($search) {
+                $query->where('nama_produk', 'like', '%' . $search . '%');
+            })
+            ->get();
+
+        return response()->json([
+            "Status" => "Success",
+            "Response" => "Successfully Searched Produk",
+            "JSON" => $produk
+        ], 200);
+    }
+
     public function updateproduk(Request $request)
     {
         $validator = Validator::make($request->all(), [

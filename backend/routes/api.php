@@ -73,5 +73,6 @@ Route::middleware('auth:api')->group(function () {
         Route::get('/readcashiercategory', [CategoryController::class, 'index']);
         Route::get('/getbycashiercategoryproduk/{id}', [ProdukController::class, 'getbycategoryproduk']);
         Route::get('/readcashiersupplier', [SupplierController::class, 'readsupplier']);
+        Route::post('/searchproduk', [ProdukController::class, 'search']);
     });
 });

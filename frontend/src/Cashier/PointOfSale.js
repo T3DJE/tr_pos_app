@@ -6,7 +6,8 @@ import {
     readCashierIdProduct,
     readCashierCategory,
     readCashierPayment,
-    readCashierMember
+    readCashierMember,
+    searchProduct
 } from '../axios';
 import styles from '../css/PointOfSale.module.css'
 import IconPos_P from './../images/IconPos-P.svg'
@@ -38,6 +39,9 @@ function PointOfSale() {
     const [orderConfirmed, setOrderConfirmed] = useState(false)
     const [hitungTotalHarga, setHitungTotalHarga] = useState(0)
     const [paymenLink, setPaymentLink] = useState(false)
+    const [searchForm, setSearchForm] = useState({
+        search: ""
+    })
 
     const handleNumpad = (value) => {
         if (value === "C") {
@@ -269,6 +273,28 @@ function PointOfSale() {
         }
     }
 
+    const handleSearchSubmit = async (e) => {
+        e.preventDefault()
+        try {
+            const result = await searchProduct({ search: searchForm.search })
+            if (!result) {
+                toast.error('Pencarian tidak ketemu!', {
+                    style: {
+                        fontSize: '12px',
+                        backgroundColor: '#fff0f0',
+                        color: '#d00',
+                    },
+                });
+            }
+            searchForm({
+                search: " "
+            })
+            setProduct(result.data.JSON)
+        } catch (error) {
+            console.error(error)
+        }
+    }
+
     const totalHarga = cart.reduce((acc, item) => acc + item.harga * item.quantity, 0)
 
     return (
@@ -292,11 +318,13 @@ function PointOfSale() {
                     <div className={styles["container-middle"]}>
                         <div className={styles["container-middle-top"]}>
                             <div className={styles.logo}>
-                                <img src={LogoKasirKu} width={35} />
-                                <div className={styles["logo-font"]}>
-                                    <p>Kasirku</p>
-                                    <p>Pos</p>
-                                </div>
+                                <a href='/poscashier'>
+                                    <img src={LogoKasirKu} width={35} />
+                                </a>
+                                    <div className={styles["logo-font"]}>
+                                        <p>Kasirku</p>
+                                        <p>Pos</p>
+                                    </div>
                             </div>
                             <div className={styles.cashierprofile}>
                                 <img src={CashierProfile} alt='cashier-profile' />
@@ -310,14 +338,14 @@ function PointOfSale() {
                             <div className={styles.content1}>
                                 <p className={styles.gcp}>Goods Catalog</p>
                                 <div className={styles["input-search"]}>
-                                    <form>
-                                        <input type='text' name='search' placeholder='Search your product. . .' className={styles.searchbar} />
+                                    <form onSubmit={handleSearchSubmit}>
+                                        <input type='text' name='search' value={searchForm.search} placeholder='Search your product. . .' className={styles.searchbar} onChange={(e) => setSearchForm({ ...searchForm, search: e.target.value })} />
                                     </form>
                                 </div>
                             </div>
                             <div className={styles.content2}>
                                 <div className={styles.scrollcontent2}>
-                                    <button onClick={handleBtnAllCategory} className={`{styles.all} ${activeCategory === null ? styles.activeCategory : ""}`}>All</button>
+                                    <button onClick={handleBtnAllCategory} className={`${styles.all} ${activeCategory === null ? styles.activeCategory : ""}`}>All</button>
                                     {categories.map((item) => (
                                         <div key={item.id}>
                                             <button onClick={() => handleBtnIdCategory(item.id)} className={activeCategory === item.id ? styles.activeCategory : ''}>{item.nama_category}</button>
